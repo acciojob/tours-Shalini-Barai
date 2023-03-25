@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 
 const tour=[  {    "id": "rec6d6T3q5EBIdCfD","name": "Best of Paris in 7 Days Tour","info": "Paris is synonymous with the finest things that culture can offer — in art, fashion, food, literature, and ideas. On this tour, your Paris-savvy Rick Steves guide will immerse you in the very best of the City of Light: the masterpiece-packed Louvre and Orsay museums, resilient Notre-Dame Cathedral, exquisite Sainte-Chapelle, and extravagant Palace of Versailles. You'll also enjoy guided neighborhood walks through the city's historic heart as well as quieter moments to slow down and savor the city's intimate cafés, colorful markets, and joie de vivre. Join us for the Best of Paris in 7 Days!","image": "https://dl.airtable.com/.attachments/a0cd0702c443f31526267f38ea5314a1/2447eb7a/paris.jpg","price": "1,995"  },  
@@ -7,13 +7,36 @@ const tour=[  {    "id": "rec6d6T3q5EBIdCfD","name": "Best of Paris in 7 Days To
    {    "id": "recK2AOoVhIHPLUwn",    "name": "Best of Rome in 7 Days Tour",    "info": "Our Rome tour serves up Europe's most intoxicating brew of dazzling art, earth-shaking history, and city life with style. On this Rome vacation, your tour guide will resurrect the grandeur of ancient Rome's Colosseum, Forum, Pantheon, and nearby Ostia Antica. From the Renaissance and Baroque eras, you'll marvel at St. Peter's Basilica, the Vatican Museums, Sistine Chapel, and Borghese Gallery. You'll also enjoy today's Rome, with neighborhood walking tours, memorable restaurants, and time to explore on your own. Join us for the Best of Rome in 7 Days!",    "image": "https://dl.airtable.com/.attachments/3efa7aa402d49c12b8769c581a96af42/d5b641e3/italy.jpeg","price": "2,095"  },  
    {    "id": "receAEzz86KzW2gvH",    "name": "Best of Poland in 10 Days Tour",    "info": "Starting in the colorful port city of Gdańsk, you'll escape the crowds and embrace the understated elegance of ready-for-prime-time Poland for 10 days. With an expert Rick Steves guide at your side, you'll experience mighty Malbork castle, the cobbly-cute village of Toruń, Poland's contemporary capital of Warsaw, the spiritual Jasna Góra Monastery, and charming Kraków — Poland's finest city. In this land of surprises — so trendy and hip, yet steeped in history — there's so much to discover. Join us for the Best of Poland in 10 Days!",    "image": "https://dl.airtable.com/.attachments/3feee7a93af0f4f809312132090c9a80/58e3e8ec/poland.jpeg",    "price": "2,595"  }]
 const App = () => {
-  
+  const [dl,setDl]=useState(true);
+  const [rf,setRf]=useState(false);
+  function handleDelete(){
+       setDl(false);
+  }
+  function handleRefresh(){
+    setRf(true);
+  }
     return(
+      <div className="App">
       <main id="main">
-        {tour.map((value)=>{
-          <p className="single-tour">{value.name}</p>
+        <h1 className="title">Tour List</h1>
+        { (dl || rf) && tour.map((value)=>{
+          console.log(value.id);
+          return(<div className="loading">
+            <h2>Name</h2><hr/>
+          <p className="single-tour">{value.name}</p><br/>
+          <h2>Information</h2><hr/>
+          <p className="tour-info">{value.info}</p><br/>
+          <h2>Prices</h2><hr/>
+          <p className="tour-price">{value.price}</p><br/>
+          </div>
+         )
+          
         })}
+        <br/>
+         <button className="delete-btn" onClick={handleDelete}>DELETE</button><br/>
+         <button className="btn" onClick={handleRefresh}>REFRESH</button>
       </main>
+      </div>
     )
 }
 export default App;
